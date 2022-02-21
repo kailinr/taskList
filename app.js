@@ -5,7 +5,6 @@ const clearbtn = document.querySelector('.clear-tasks');
 const filter = document.querySelector('#filter');
 const taskInput = document.querySelector('#task');
 
-
 //Load All Event Listeners 
 loadEventListeners();
 
@@ -15,9 +14,11 @@ function loadEventListeners(){
   form.addEventListener('submit', addTask);
   //Remove Task Event
   taskList.addEventListener('click', removeTask);
+  //Add Clear Button Event
+  clearbtn.addEventListener('click', clearTasks);
 }
 
-//Add Task
+//ADD TASKS
 function addTask(e){
   if (taskInput.value === ''){
     alert('Add a Task!');
@@ -48,8 +49,7 @@ function addTask(e){
   }
 };
 
-
-
+//REMOVE TASKS
 function removeTask(e){
 
   if(e.target.parentElement.classList.contains('delete-item')){
@@ -57,4 +57,18 @@ function removeTask(e){
         e.target.parentElement.parentElement.remove();
     }
   }
+}
+
+
+function clearTasks(e) {
+  //just deletes the html in the buttons
+  taskList.innerHTML = "";
+
+  //Faster method - while loop!
+  while (taskList.firstChild) {
+    //while there still is a first child .. 
+    taskList.removeChild(taskList.firstChild);
+  }
+
+  e.preventDefault();
 }
