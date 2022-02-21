@@ -13,16 +13,17 @@ loadEventListeners();
 function loadEventListeners(){
   //Add Task Event
   form.addEventListener('submit', addTask);
-
+  //Remove Task Event
+  taskList.addEventListener('click', removeTask);
 }
 
 //Add Task
 function addTask(e){
   if (taskInput.value === ''){
     alert('Add a Task!');
-  } 
+  } else {
   //Create li element
-const li = document.createElement('li')
+  const li = document.createElement('li')
   //Add li class
   li.className = 'collection-item';
   //create text node & append to li
@@ -42,5 +43,17 @@ const li = document.createElement('li')
   //clear input
   taskInput.value = "";
 
+  //prevent default behavior
   e.preventDefault();
+  }
+};
+
+
+
+function removeTask(e){
+
+  if (e.target.parentElement.classList.contains('delete-item')) {
+  
+   e.target.parentElement.parentElement.remove();
+  }
 }
