@@ -52,8 +52,9 @@ function addTask(e){
 
 function removeTask(e){
 
-  if (e.target.parentElement.classList.contains('delete-item')) {
-  
-   e.target.parentElement.parentElement.remove();
+  if(e.target.parentElement.classList.contains('delete-item')){
+    if (confirm('Are You Sure?')) {
+        e.target.parentElement.parentElement.remove();
+    }
   }
 }
