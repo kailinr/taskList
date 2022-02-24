@@ -16,6 +16,8 @@ function loadEventListeners(){
   taskList.addEventListener('click', removeTask);
   //Add Clear Button Event
   clearbtn.addEventListener('click', clearTasks);
+  //Filter Tasks
+  filter.addEventListener('keyup', filterTasks);
 }
 
 //ADD TASKS
@@ -59,16 +61,38 @@ function removeTask(e){
   }
 }
 
-
 function clearTasks(e) {
-  //just deletes the html in the buttons
-  taskList.innerHTML = "";
+  //Method #1: Set innerhtml to nothing
+  //taskList.innerHTML = "";
 
-  //Faster method - while loop!
-  while (taskList.firstChild) {
-    //while there still is a first child .. 
+    console.log(taskList.firstChild);
+  //Method #2:* While Loop - faster than M#1:
+  while (taskList.firstChild) { //while there is a first child 
+
     taskList.removeChild(taskList.firstChild);
+    //node.removeChild(child)
+    //https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
   }
-
-  e.preventDefault();
 }
+
+
+//Filter Tasks
+function filterTasks(e){
+  const text = e.target.value.toLowerCase(); //keypress in filter task box to lowercase, for proper matching.
+
+    const totalList = document.querySelectorAll('.collection-item');  //Get NodeList of task list to loop (and search) through //note: using ALL so its NodeList
+
+    totalList.forEach(function(task){
+        const item = task.firstChild.textContent; //first child because task is the entire UL
+          //Hide or Display Task Items if Found
+          if (item.toLowerCase().indexOf(text) != -1) {
+            //if the text being typed (lowercase) is not found (if not found, returns -1), show it.
+
+            task.style.display = 'block'; //show block
+
+          } else {
+            task.style.display = 'none'; //hide block
+          }
+    });
+}
+
